@@ -48,10 +48,10 @@ export const newFoodData = async (req, res) => {
     }
 
     if (!Array.isArray(recipe)) {
-        errors.push('category type should be Array')
+        errors.push('recipe type should be Array')
     }
     else if (recipe.length === 0 || !recipe) {
-        errors.push('category should be not empty')
+        errors.push('recipe should be not empty')
     }
 
 

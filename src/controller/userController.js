@@ -37,14 +37,14 @@ export const loginUser = async (req, res) => {
         return res.status(400).json({ error: "wrong passwrod" })
     }
 
-    const token = generateAccessToken(result.rows[0])
+    const token = await generateAccessToken(result.rows[0])
     res.status(200).json({ token: token })
 }
 
 export const insertNewUser = async (req, res) => {
     const { email, fullname, password } = req.body
     const errors = []
-
+    
     if (!validator.isEmail(email)) {
         errors.push('email is not valid')
     }
