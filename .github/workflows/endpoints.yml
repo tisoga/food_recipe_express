@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Set UP Node.JS
-        uses: actions/setip-node@v3
+        uses: actions/setup-node@v3
       - name: Install Dependency
         run : npm ci
       - name: Unit Testing
