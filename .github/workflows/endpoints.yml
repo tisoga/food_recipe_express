@@ -1,0 +1,17 @@
+name: Endpoints Test
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  unit_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set UP Node.JS
+        uses: actions/setip-node@v3
+      - name: Install Dependency
+        run : npm ci
+      - name: Unit Testing
+        run : npm test
