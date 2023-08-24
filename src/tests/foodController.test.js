@@ -23,7 +23,7 @@ describe('Food Controllers Test', () => {
 
             const queryStub = sinon.stub(db, 'query').resolves(mockDbResult)
 
-            const req = { body: {} }
+            const req = { body: {}, query: {} }
             const res = {
                 status: sinon.stub().returnsThis(),
                 json: sinon.stub()

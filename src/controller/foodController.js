@@ -3,7 +3,21 @@ import foodQuery from '../db/queries/foodQueries.js'
 import validator from 'validator'
 
 export const getAllFoodData = async (req, res) => {
+    const { search, category } = req.query
     try {
+        if (search && category) {
+            const result = await db.query(foodQuery.searchFoodDataByCategory(search), [category])
+            return res.status(200).json(result.rows)
+        }
+        if (search) {
+            const result = await db.query(foodQuery.searchFoodData(search))
+            return res.status(200).json(result.rows)
+        }
+        if (category) {
+            console.log(category)
+            const result = await db.query(foodQuery.getAllFoodDataByCategory, [category])
+            return res.status(200).json(result.rows)
+        }
         const result = await db.query(foodQuery.getAllFoodData)
         res.status(200).json(result.rows)
     }
