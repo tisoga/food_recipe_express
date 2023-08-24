@@ -15,8 +15,6 @@ jobs:
 
     steps:
       - uses: 'actions/checkout@v3'
-      - name: test
-        run : echo ${{env.DB_HOST}}
       - name: Create .env File For db and secret key
         run : |
           touch .env
@@ -26,11 +24,11 @@ jobs:
           echo DB_USER = ${{secrets.DB_USER}} >> .env
           echo DB_PASS = ${{secrets.DB_PASS}} >> .env
           echo DB_DATABASE_NAME = ${{secrets.DB_DATABASE_NAME}} >> .env
-          - id : 'auth'
-          name: 'Authenticate to Google Cloud'
-          uses: 'google-github-actions/auth@v1'
-          with:
-            credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
+      - id : 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
           
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v1'
