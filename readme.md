@@ -31,4 +31,4 @@ You can get JWT TOKEN in /login Endpoint
 
 ## DEMO
 
-https://food-api.ryan-retired.my.id
+https://food-api.ryan-retired.com

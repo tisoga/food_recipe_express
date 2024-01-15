@@ -3,6 +3,8 @@ name: Build, Upload, Deploy to Google Cloud Platform
 on:
   push:
     branches: ['main']
+  workflow_dispatch:
+
 
 jobs:
   build_and_push:
@@ -12,6 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       IMAGE_NAME: food-express-api
+      PROJECT_ID: ${{vars.PROJECT_ID}}
 
     steps:
       - uses: 'actions/checkout@v3'
@@ -42,8 +45,8 @@ jobs:
 
       - name: Push Image
         run: |
-          docker tag ${{ env.IMAGE_NAME }} asia.gcr.io/${{ secrets.PROJECT_ID }}/${{ env.IMAGE_NAME }}
-          docker push asia.gcr.io/${{ secrets.PROJECT_ID }}/${{ env.IMAGE_NAME }}
+          docker tag ${{ env.IMAGE_NAME }} asia.gcr.io/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}
+          docker push asia.gcr.io/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}
         
       - id: 'deploy'
         name: 'Deploy to Cloudrun'
@@ -52,7 +55,7 @@ jobs:
         uses: 'google-github-actions/deploy-cloudrun@v1'
         with:
           service: ${{ env.IMAGE_NAME }}
-          image: asia.gcr.io/${{ secrets.PROJECT_ID }}/${{ env.IMAGE_NAME }}:latest
+          image: asia.gcr.io/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}:latest
           region: asia-southeast1
           flags: '--allow-unauthenticated --port=${{ env.PORT_IMAGE }} --max-instances=10'
         

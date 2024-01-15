@@ -1,12 +1,11 @@
 import { Router } from 'express';
 import { getUser, insertNewUser, listAllUser, loginUser } from '../controller/userController.js';
-import authCheckToken from '../middleware/authCheck.js';
 
 const router = Router()
 
-router.get('/users', authCheckToken, listAllUser)
+router.get('/users', listAllUser)
 
-router.get('/user', authCheckToken, getUser)
+router.get('/user', getUser)
 
 router.post('/login', loginUser)
 

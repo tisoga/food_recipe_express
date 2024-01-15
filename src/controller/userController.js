@@ -56,6 +56,10 @@ export const insertNewUser = async (req, res) => {
         errors.push('fullname is required')
     }
 
+    if (typeof fullname !== 'string' ){
+        errors.push('Fullname not string type')
+    }
+
     if (!password) {
         errors.push('password is required')
     }
